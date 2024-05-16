@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.9.6'
 }
 
 group = 'org.example'
@@ -9,9 +10,38 @@ repositories {
     mavenCentral()
 }
 
+// Versioning of dependencies
+def cucumberVersion = '7.15.0'
+def junitVersion = '5.10.0'
+def selenideVersion = '6.19.0'
+def lombokVersion = '1.18.30'
+def allureVersion = '2.12.1'
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testImplementation platform("org.junit:junit-bom:${junitVersion}")
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:${junitVersion}"
+    implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+    implementation 'io.rest-assured:rest-assured:5.4.0'
+    implementation group: "com.codeborne", name: "selenide", version: "${selenideVersion}"
+
+    testImplementation "io.qameta.allure:allure-junit5:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-commandline:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-assertj:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-java-commons:${allureVersion}"
+    testImplementation "io.qameta.allure:allure-selenide:${allureVersion}"
+    implementation 'io.qameta.allure:allure-cucumber7-jvm:2.24.0'
+    testImplementation "io.qameta.allure:allure-junit-platform:2.24.0"
+
 }
 
 test {

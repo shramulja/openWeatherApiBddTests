@@ -1,29 +1,28 @@
 package impl;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import models.Request;
-import models.ResponseCurrent;
-import services.RealTimeService;
-
-import java.io.IOException;
+import services.CurrentWeatherService;
 
 import static io.restassured.RestAssured.given;
 import static specification.APIRequestSpecification.aPIRequestSpecification;
 
-public class CurrentServiceImpl implements RealTimeService {
+public class CurrentWeatherImpl implements CurrentWeatherService {
     private final String CURRENT = "current.json?key=";
 
     @Override
-    public Response getResponseCurrentService(Request currentRequest) {
+    public Response getResponseCurrent(Request currentRequest) {
 
-        String url = URI + CURRENT;
-
+        String url = URI + CURRENT + currentRequest.getKey();
+        if (currentRequest.getLang() != null) {
+            url = url + "&lang=" + currentRequest.getLang();
+        }
+        if (currentRequest.getQuery() != null) {
+            url = url + "&q=" + currentRequest.getQuery();
+        }
         return given().spec(aPIRequestSpecification())
                 .when()
-                .get(url + currentRequest.getKey() + "&q=" + currentRequest.getQuery()
-                        + "&lang=" + currentRequest.getLang());
+                .get(url);
     }
 }
 

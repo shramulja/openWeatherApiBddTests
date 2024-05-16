@@ -1,9 +1,7 @@
-package responseDTO;
+package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-
-import java.util.ArrayList;
 
 @Getter
 public class Current{

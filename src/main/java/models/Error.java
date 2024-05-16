@@ -1,4 +1,4 @@
-package responseDTO;
+package models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -7,8 +7,6 @@ import lombok.Getter;
 public class Error {
     @JsonProperty("code")
     public int code;
-    @JsonProperty("type")
-    public String type;
-    @JsonProperty("info")
-    public String info;
+    @JsonProperty("message")
+    public String message;
 }
